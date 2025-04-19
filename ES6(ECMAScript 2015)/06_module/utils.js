@@ -3,7 +3,7 @@
 
 //named export : 이름을 지정해서 내보낸다.
 export function add(a, b){
-    return a + b;
+    return a+b;
 }
 
 //변수도 등록가능
@@ -15,5 +15,5 @@ export default function say(name = "방문자"){
     console.log(`안녕하세요 ${name}님`);
 }
 
-//이 파일 자체는 실행되는 코드가 없으며, 
+//이 파일 자체는 실행되는 코드가 없으며,
 //다른 파일에서 import를 통해 사용할 수 있음.
