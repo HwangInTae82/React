@@ -67,13 +67,6 @@ const videoData = [{
 function App() {
   return (
     <>
-      {/* <Heading type="h2"/>
-      <Heading/>
-      <Heading>
-        무엇을 도와드릴까요?
-      </Heading>
-      <Hello /> */}
-      <VideoList videos={videoData}/>
     </>
   )
 }
