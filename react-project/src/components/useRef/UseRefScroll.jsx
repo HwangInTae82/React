@@ -4,7 +4,7 @@ import styled from 'styled-components'
 const Nav = styled.nav`
     position: fixed;
     top: 0;
-    background: #ffffff;
+    background: #4b4b4b;
     width: 100%;
     z-index: 1000;
 `
@@ -25,7 +25,7 @@ const UseRefScroll = () => {
     })
 
     const handleScrollView = (sectionKey) => {
-        scrollRef.current[sectionKey]?.scrollIntoView({ begavior: "smooth"});
+        scrollRef.current[sectionKey]?.scrollIntoView({ behavior: "smooth"});
     }
 
     return (
