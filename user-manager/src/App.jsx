@@ -9,25 +9,24 @@ import UserRegistration from './pages/UserRegistration'
 import NotFound from './pages/NotFound'
 
 function App() {
-  const users = [
-    { img:'https://storage.googleapis.com/cdn.media.bluedot.so/bluedot.thecore/2025/04/aswg8a_202504190306.png',
-        id: '1', name: '황인태', age: 26, isOnline: true },
-    { img:'https://storage.googleapis.com/cdn.media.bluedot.so/bluedot.thecore/2025/04/oia7ak_202504190307.png',
-        id: '2', name: '이주찬', age: 26, isOnline: false },
-    { img:'https://i.namu.wiki/i/enYCzF2cYTCCiMgde_ewP2mEfFY66_YI9jXpO0mSQym6sOhdGoiYry4XKUxLNsXblRDPl5QaxiL3ACU_ZQVgWA.webp',
-      id: '3', name: '전진영', age: 25, isOnline: true },
-    { img:'https://i.namu.wiki/i/FGrKOrMqLuvt20kKL4ZHrsQzwedUu5oMe_TB7RAyO8PQW6nERJPY5Fidkuyq86FEjI8FgPxdlI2pQCei589sfg.webp',
-      id: '4', name: '김현아', age: 24, isOnline: false },
-  ]
-
+  const [users, setUsers] = useState([
+  
+  { img:'https://pimg.mk.co.kr/news/cms/202309/26/news-p.v1.20230926.96ae9f04144e4adc97068f5953e4f717_P1.jpg',
+    id: '1', name: '강하늘', age: 36, isOnline: true },
+{ img:'https://image.static.bstage.in/cdn-cgi/image/metadata=none,dpr=2,width=640/kissoflife/6e501541-e6c5-45fb-8374-d3c035dd4b5f/6d984c91-1a61-4ebd-8cb0-0a26227a65cf/ori.jpg',
+    id: '2', name: '원하늘', age: 20, isOnline: false },
+{ img:'https://img1.newsis.com/2020/06/25/NISI20200625_0000551541_web.jpg',
+  id: '3', name: '하늘보리', age: 1, isOnline: false },
+]);
+  
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<UserList users={users} />} />
         
-        <Route path='/user/:id' element={<UserDetail users={users} />} />
+        <Route path='/user/:id' element={<UserDetail users={users} setUsers={setUsers}/>} />
         
-        <Route path='/user' element={<UserRegistration />} />
+        <Route path='/user' element={<UserRegistration setUsers={setUsers} users={users}/>} />
         
         <Route path='*' element={<NotFound />} />
       </Routes>
