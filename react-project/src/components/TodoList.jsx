@@ -13,7 +13,8 @@ const TodoItem = styled.div`
     padding: 12px;
     margin: 8px 0;
     border-radius: 4px;
-`
+` 
+
 const Checkbox = styled.input`
     margin-right: 12px;
     width: 18px;
@@ -23,7 +24,7 @@ const Checkbox = styled.input`
 
 const TodoText = styled.span`
     flex: 1;
-    text-decoration: ${props => props.completed ? "line-through" : "none"};
+    text-decoration: ${porps => porps.completed ? "line-through" : "none"};
 `
 
 const DeleteButton = styled.button`
@@ -36,15 +37,14 @@ const DeleteButton = styled.button`
     &:hover{
         opacity: 0.9;
     }
-    
 `
-
 const FilterContainer = styled.div`
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
     justify-content: center;
 `
+
 const FilterButton = styled.button`
     padding: 6px 12px;
     color: white;
@@ -55,12 +55,11 @@ const FilterButton = styled.button`
     &:hover{
         opacity: 0.9;
     }
-    
 `
 
 const TodoList = () => {
-    const { todos, getFilteredTodos, toggleTodo, deleteTodo, setFilter} = useTodoStore();
-    //const [filter, setFilter] = useState("all");
+    const { getFilteredTodos,filter, toggleTodo, deleteTodo, setFilter } = useTodoStore();
+    // const [filter, setFilter] = useState("all");
 
     // const filterTodos = todos.filter(todo => {
     //     switch(filter){
@@ -73,39 +72,40 @@ const TodoList = () => {
     //     }
     // })
 
+    const todos = getFilteredTodos();
+
     return (
         <ListContainer>
             <FilterContainer>
-                <FilterButton 
+                <FilterButton
                     active={filter === "all"}
                     onClick={() => setFilter("all")}
                 >
                     전체
                 </FilterButton>
-                <FilterButton 
+                <FilterButton
                     active={filter === "active"}
                     onClick={() => setFilter("active")}
                 >
                     진행중
                 </FilterButton>
-                <FilterButton 
+                <FilterButton
                     active={filter === "completed"}
                     onClick={() => setFilter("completed")}
                 >
                     완료
                 </FilterButton>
             </FilterContainer>
-            {getFilteredTodos.map((todo) => (
-                    <TodoItem key={todo.id}>
-                        <Checkbox
-                            type='checkbox'
-                            checked={todo.completed}
-                            onChange={() => toggleTodo(todo.id)}
-                        />
-                        <TodoText completed={todo.completed}>{todo.text}</TodoText>
-                        <DeleteButton onClick={() => deleteTodo(todo.id)}>삭제</DeleteButton>
-                    </TodoItem>
-                
+            {todos.map((todo) => (
+                <TodoItem key={todo.id}>
+                    <Checkbox 
+                        type='checkbox'
+                        checked={todo.completed}
+                        onChange={() => toggleTodo(todo.id)}
+                    />
+                    <TodoText completed={todo.completed}>{todo.text}</TodoText>
+                    <DeleteButton onClick={() => deleteTodo(todo.id)}>삭제</DeleteButton>
+                </TodoItem>
             ))}
         </ListContainer>
     )
