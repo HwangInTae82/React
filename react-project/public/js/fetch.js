@@ -17,4 +17,15 @@ async function getPosts() {
     }
 }
 
-getPosts();
+//getPosts();
+
+function testFunc1(){
+
+}
+async function testFunc2(){
+
+}
+
+
+console.log(testFunc1);
+console.log(testFunc2);
