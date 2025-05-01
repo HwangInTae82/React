@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import './App.css';
-import IconButtons from './components/IconButtons';
 import GlobalStyle from './GlobalStyle';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from './themes';
 import ThemeBox from './components/ThemeBox';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { performToast } from './utils/performToast';
 import SimpleForm from './components/SimpleForm';
 import LoaderDemo from './components/LoaderDemo';
 import TodoList from './components/TodoList';
+import SideBar from './components/SideBar';
+import Display from './components/Display';
 
 performToast({ msg: '요청에 성공하였습니다. 1', type: 'success' });
 performToast({ msg: '요청에 실패하였습니다. 1', type: 'error' });
@@ -23,18 +24,23 @@ function App() {
   console.log(apiUrl);
 
   return (
-    <>
-      {/* <IconButtons /> */}
+    <Wrapper>
       {/* <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
         <GlobalStyle />
         <ThemeBox onToggleTheme={toggleTheme} />
-      </ThemeProvider> */}
-      {/* <ToastContainer /> */}
-      {/* <SimpleForm /> */}
-      {/* <LoaderDemo /> */}
-      <TodoList />
-    </>
+      </ThemeProvider>
+      <ToastContainer />
+      <SimpleForm />
+      <LoaderDemo />
+      <TodoList /> */}
+      <SideBar />
+      <Display />
+    </Wrapper>
   );
 }
 
 export default App;
+
+const Wrapper = styled.div`
+  display: flex;
+`;
