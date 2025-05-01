@@ -6,13 +6,15 @@ import GlobalStyle from './GlobalStyle';
 import ThemeBox from './components/ThemeBox';
 import { ToastContainer } from 'react-toastify';
 import { performToast } from './utils/performToast';
-import SimpleForm from './components/SimpleForm';
 import LoaderDemo from './components/LoaderDemo';
 import TodoList from './components/TodoList';
 import SideBar from './components/SideBar';
 import Display from './components/Display';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
 
 performToast({ msg: '요청에 성공하였습니다. 1', type: 'success' });
 performToast({ msg: '요청에 실패하였습니다. 1', type: 'error' });
@@ -28,7 +30,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<SignIn />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {/* <ThemeProvider theme={isDark ? darkTheme : lightTheme}>

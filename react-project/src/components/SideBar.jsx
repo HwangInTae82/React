@@ -85,10 +85,11 @@ export default SideBar;
 
 const Wrapper = styled.div`
   display: flex;
-  width: 280px;
+  width: 250px;
   height: 100vh;
   flex-direction: column;
   border-right: 1px solid #eeeeee;
+  padding-left: 16px;
 `;
 
 const Img = styled.img`

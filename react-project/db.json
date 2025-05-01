@@ -1,6 +1,11 @@
 {
-  "todos": [
-    { "id": 1, "text": "밥먹기", "completed": false },
+  "posts": [
+    {
+      "id": 1,
+      "img": "https://pbs.twimg.com/media/GKOrJYwaAAAOCgo.jpg",
+      "text": "KISS OF LIFE 하늘 HANEUL (@KIOF_Haneeul) / X",
+      "completed": false
+    },
     { "id": 2, "text": "공부하기", "completed": true },
     { "id": 3, "text": "과제하기", "completed": false }
   ]
