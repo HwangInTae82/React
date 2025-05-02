@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import styled from 'styled-components';
 import { Navigate, useAsyncError, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import useUserStore from '../store/userStore';
 
 const schema = yup.object().shape({
   email: yup.string().email('유효한 이메일 형식이 아닙니다.').required('이메일주소를 입력하세요.'),
@@ -12,6 +13,8 @@ const schema = yup.object().shape({
 });
 
 const SignIn = () => {
+  const setUser = useUserStore((state) => state.setUser);
+
   const {
     register,
     handleSubmit,
@@ -28,6 +31,7 @@ const SignIn = () => {
       const user = users.find((u) => u.email === data.email && u.password === data.password);
 
       if (user) {
+        setUser(user);
         alert(`로그인 성공! 환영합니다, ${user.username}님`);
         navigate('/home');
       } else {
@@ -89,10 +93,11 @@ const Introduce = styled.div`
   display: flex;
   flex-direction: column;
   padding: 40px 0;
+  border-right: 2px solid #eeeeee;
 `;
 
 const IntroduceImg = styled.img`
-  width: 400px;
+  width: 550px;
 `;
 
 const FormWrapper = styled.form`
@@ -116,7 +121,7 @@ const InputText = styled.input`
   padding: 10px 16px;
   border-radius: 18px;
   width: 100%;
-  font-size: 15px;
+  font-size: 17px;
   height: 60px;
 `;
 

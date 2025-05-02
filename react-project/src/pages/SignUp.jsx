@@ -11,6 +11,7 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  const [userNickName, setUserNickName] = useState('');
 
   const navigate = useNavigate();
 
@@ -124,7 +125,12 @@ const SignUp = () => {
           <PaddingBox>
             <InputUpText>사용자 이름</InputUpText>
           </PaddingBox>
-          <InputText type="text" placeholder="사용자 이름" />
+          <InputText
+            type="text"
+            placeholder="사용자 이름"
+            value={userNickName}
+            onChange={(e) => setUserNickName(e.target.value)}
+          />
         </div>
         <div style={{ paddingTop: 20, paddingBottom: 15 }}>
           <span style={{ fontSize: 15 }}>

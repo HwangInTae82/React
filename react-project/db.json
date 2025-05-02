@@ -8,18 +8,21 @@
     },
     {
       "id": 2,
-      "text": "공부하기",
+      "img": "https://image.fnnews.com/resource/media/image/2024/05/24/202405240905362710_l.jpg",
+      "text": "프로미스나인 백지헌, 복통 증세로 휴식…24일 스케줄도 불참 - 파이낸셜뉴스",
       "completed": true
     },
     {
       "id": 3,
-      "text": "과제하기",
+      "img": "https://data.onnada.com/character/202301/2042390482_867dcf19_939696.jpg",
+      "text": "호빵맨 (アンパンマン)",
       "completed": false
     }
   ],
   "users": [
     {
       "id": 1,
+      "img": "https://data.onnada.com/character/202301/2042390482_867dcf19_939696.jpg",
       "email": "test@example.com",
       "password": "1234",
       "username": "testuser",
@@ -27,6 +30,7 @@
     },
     {
       "id": "821a",
+      "img": "https://pbs.twimg.com/media/GovEjGWaUAA5uBV?format=jpg&name=large",
       "email": "int0802@naver.com",
       "password": "k1230569*",
       "username": "황인태",
@@ -38,6 +42,13 @@
       "password": "fasd",
       "username": "황인태",
       "birthDate": "2000-08-02"
+    },
+    {
+      "id": "10c5",
+      "email": "gkgkgk",
+      "password": "1234",
+      "username": "성진",
+      "birthDate": "2009-01-18"
     }
   ]
 }
