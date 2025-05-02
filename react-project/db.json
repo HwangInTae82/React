@@ -6,7 +6,38 @@
       "text": "KISS OF LIFE 하늘 HANEUL (@KIOF_Haneeul) / X",
       "completed": false
     },
-    { "id": 2, "text": "공부하기", "completed": true },
-    { "id": 3, "text": "과제하기", "completed": false }
+    {
+      "id": 2,
+      "text": "공부하기",
+      "completed": true
+    },
+    {
+      "id": 3,
+      "text": "과제하기",
+      "completed": false
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "email": "test@example.com",
+      "password": "1234",
+      "username": "testuser",
+      "birthday": "2000-01-01"
+    },
+    {
+      "id": "821a",
+      "email": "int0802@naver.com",
+      "password": "k1230569*",
+      "username": "황인태",
+      "birthDate": "2000-08-02"
+    },
+    {
+      "id": "f7ab",
+      "email": "fdas",
+      "password": "fasd",
+      "username": "황인태",
+      "birthDate": "2000-08-02"
+    }
   ]
 }

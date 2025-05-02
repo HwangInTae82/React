@@ -3,14 +3,15 @@ import { useForm } from 'react-hook-form';
 import React from 'react';
 import * as yup from 'yup';
 import styled from 'styled-components';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useAsyncError, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const schema = yup.object().shape({
   email: yup.string().email('유효한 이메일 형식이 아닙니다.').required('이메일주소를 입력하세요.'),
   password: yup.string().required('비밀번호를을 입력하세요.'),
 });
 
-const SignUp = () => {
+const SignIn = () => {
   const {
     register,
     handleSubmit,
@@ -19,8 +20,23 @@ const SignUp = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => {
-    alert(`로그인 성공! 이름: ${data.name}, 이메일: ${data.email}`);
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.get('http://localhost:3001/users');
+      const users = response.data;
+
+      const user = users.find((u) => u.email === data.email && u.password === data.password);
+
+      if (user) {
+        alert(`로그인 성공! 환영합니다, ${user.username}님`);
+        navigate('/home');
+      } else {
+        alert('이메일 또는 비밀번호가 올바르지 않습니다.');
+      }
+    } catch (error) {
+      console.error('로그인 요청 중 오류 발생:', error);
+      alert('서버에 연결할 수 없습니다.');
+    }
   };
 
   const navigate = useNavigate();
@@ -31,7 +47,9 @@ const SignUp = () => {
         <LogoImg src="https://png.pngtree.com/png-clipart/20180626/ourmid/pngtree-instagram-icon-instagram-logo-png-image_3584853.png" />
 
         <span>나를 이해하는 사람들과 관심사를 공유해보세요</span>
-        <IntroduceImg src="/src/img/Feta-IG-Web-A.png" alt="" />
+        <div>
+          <IntroduceImg src="/src/img/Feta-IG-Web-A.png" alt="" />
+        </div>
       </Introduce>
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
         <InstaLoginText>Instagram으로 로그인</InstaLoginText>
@@ -53,7 +71,7 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -81,6 +99,7 @@ const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  font-family: 'Segoe UI Historic', 'Segoe UI', sans-serif;
   gap: 12px;
   padding: 0 50px;
   width: 50%;
@@ -97,6 +116,7 @@ const InputText = styled.input`
   padding: 10px 16px;
   border-radius: 18px;
   width: 100%;
+  font-size: 15px;
   height: 60px;
 `;
 
