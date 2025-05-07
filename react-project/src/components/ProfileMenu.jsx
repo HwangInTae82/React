@@ -31,7 +31,6 @@ const ProfileMenu = ({ user, posts, onUpdateUser }) => {
   const handleEditToggle = () => {
     setIsEditing((prev) => !prev);
 
-    // 취소 시 원래 값으로 복원
     if (isEditing) {
       setEditedNick(currentUser.userNickName || '');
       setEditedUsername(currentUser.username || '');
@@ -42,21 +41,17 @@ const ProfileMenu = ({ user, posts, onUpdateUser }) => {
     try {
       setIsLoading(true);
 
-      // 변경된 사용자 정보
       const updatedUser = {
         ...currentUser,
         userNickName: editedNick,
         username: editedUsername,
       };
 
-      // API 호출로 사용자 정보 업데이트
       const response = await axios.put(`http://localhost:3001/users/${currentUser.id}`, updatedUser);
 
-      // 업데이트된 사용자 정보 설정 (응답에서 데이터를 가져오거나 업데이트된 객체 사용)
       const updatedUserData = response.data || updatedUser;
       setCurrentUser(updatedUserData);
 
-      // 부모 컴포넌트의 함수 호출하여 UI 업데이트
       if (onUpdateUser) {
         onUpdateUser(updatedUserData);
       }
@@ -72,7 +67,6 @@ const ProfileMenu = ({ user, posts, onUpdateUser }) => {
   };
 
   const handleCancel = () => {
-    // 편집 취소 시 원래 값으로 복원
     setEditedNick(currentUser.userNickName || '');
     setEditedUsername(currentUser.username || '');
     setIsEditing(false);

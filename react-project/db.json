@@ -51,6 +51,24 @@
       "userNickName": "hyana",
       "createdTime": "2025-05-07T03:11:51.055Z",
       "status": true
+    },
+    {
+      "id": "6c4b",
+      "img": "https://photo.newsen.com/news_photo/2023/08/02/202308021551233510_1.jpg",
+      "text": "에스파 윈터 '하트에 예쁨을 담아'[포토엔HD] - 뉴스엔",
+      "userImg": "https://i.namu.wiki/i/9AQ3kcwiGoeJoBJT8uIrCtkOsfSlCy7Z7FEyGTYq3AKyNAYlNC-GL9G7rYYRTQPDVjiBn3nBCb0ChIXZYT0M67_3SWH7R5k0Jm4lwX6WMIF1alCGF80bOyP6ggXdhjIGs_MV-S371dF7gcza9sXrRQ.webp",
+      "userNickName": "hyana",
+      "createdTime": "2025-05-07T05:38:11.624Z",
+      "status": true
+    },
+    {
+      "id": "d2ef",
+      "img": "https://i.namu.wiki/i/a3sPu0Y5b5IfWoyJJYostP_QtJU2raU-Ae-32-siFhbgiEvf_PgigpsbjhaF3OQ0E5YqmquZzcMtqVrzskXvQA.webp",
+      "text": "야당(영화)",
+      "userImg": "https://i.namu.wiki/i/9AQ3kcwiGoeJoBJT8uIrCtkOsfSlCy7Z7FEyGTYq3AKyNAYlNC-GL9G7rYYRTQPDVjiBn3nBCb0ChIXZYT0M67_3SWH7R5k0Jm4lwX6WMIF1alCGF80bOyP6ggXdhjIGs_MV-S371dF7gcza9sXrRQ.webp",
+      "userNickName": "hyana",
+      "createdTime": "2025-05-07T06:09:13.302Z",
+      "status": true
     }
   ],
   "users": [
@@ -109,8 +127,17 @@
       "email": "gusdk@naver.com",
       "password": "123456",
       "username": "김현아",
-      "userNickName": "hyana",
+      "userNickName": "hyan무뭄",
       "birthDate": "2011-02-14"
+    },
+    {
+      "id": "8e02",
+      "img": "https://i.namu.wiki/i/Bge3xnYd4kRe_IKbm2uqxlhQJij2SngwNssjpjaOyOqoRhQlNwLrR2ZiK-JWJ2b99RGcSxDaZ2UCI7fiv4IDDQ.webp",
+      "email": "dlsxo@naver.com",
+      "password": "123456",
+      "username": "황인태 ",
+      "userNickName": "intae_0802",
+      "birthDate": "1957-04-16"
     }
   ]
 }

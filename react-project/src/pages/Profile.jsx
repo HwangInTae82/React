@@ -10,7 +10,6 @@ const Profile = () => {
   const user = useUserStore((state) => state.user);
   const location = useLocation();
 
-  // 페이지 로드 시 location state 초기화 (다른 라우트에서 넘어온 후에는 refresh 상태 리셋)
   useEffect(() => {
     return () => {
       if (location.state?.refresh) {
