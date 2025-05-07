@@ -4,8 +4,9 @@ import Display from '../components/Display';
 import styled from 'styled-components';
 import useUserStore from '../store/userStore';
 import { useLocation } from 'react-router-dom';
+import ProfileMenu from '../components/ProfileMenu';
 
-const Home = () => {
+const Profile = () => {
   const user = useUserStore((state) => state.user);
   const location = useLocation();
 
@@ -24,17 +25,19 @@ const Home = () => {
         <SideBar user={user} />
       </FixedSideBar>
       <Content>
-        <Display user={user} />
+        <ProfileMenu user={user} />
       </Content>
     </Wrapper>
   );
 };
 
-export default Home;
+export default Profile;
 
 const Wrapper = styled.div`
   width: 100vw;
+  height: 100vh;
   display: flex;
+  align-items: flex-start;
   font-family:
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -51,4 +54,7 @@ const FixedSideBar = styled.div`
 const Content = styled.div`
   margin-left: 250px;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 `;

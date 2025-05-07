@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { Navigate, useAsyncError, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useUserStore from '../store/userStore';
+import { BiVolume } from 'react-icons/bi';
 
 const schema = yup.object().shape({
   email: yup.string().email('유효한 이메일 형식이 아닙니다.').required('이메일주소를 입력하세요.'),
@@ -50,7 +51,7 @@ const SignIn = () => {
       <Introduce>
         <LogoImg src="https://png.pngtree.com/png-clipart/20180626/ourmid/pngtree-instagram-icon-instagram-logo-png-image_3584853.png" />
 
-        <span>나를 이해하는 사람들과 관심사를 공유해보세요</span>
+        <span style={{ fontSize: 45, fontWeight: 'bold' }}>나를 이해하는 사람들과 관심사를 공유해보세요!!</span>
         <div>
           <IntroduceImg src="/src/img/Feta-IG-Web-A.png" alt="" />
         </div>
@@ -65,7 +66,9 @@ const SignIn = () => {
         <LoginButton type="submit">로그인</LoginButton>
         <span>비밀번호를 잊으셨나요?</span>
         <SignUpDiv>
-          <SignUpButton onClick={() => navigate('/signup')}>새 계정 만들기</SignUpButton>
+          <SignUpButton type="button" onClick={() => navigate('/signup')}>
+            새 계정 만들기
+          </SignUpButton>
         </SignUpDiv>
         <div>
           <MetaLogoImg src="https://blog.kakaocdn.net/dn/cf2aNI/btsCbfy0Z11/CKBSZK5gdmeKEuDaZQKKlk/Meta_Platforms-Logo.wine.png?attach=1&knm=img.png" />
@@ -89,7 +92,7 @@ const LogoImg = styled.img`
 `;
 
 const Introduce = styled.div`
-  width: 50%;
+  width: 70%;
   display: flex;
   flex-direction: column;
   padding: 40px 0;
@@ -97,7 +100,7 @@ const Introduce = styled.div`
 `;
 
 const IntroduceImg = styled.img`
-  width: 550px;
+  width: 1000px;
 `;
 
 const FormWrapper = styled.form`
@@ -107,7 +110,7 @@ const FormWrapper = styled.form`
   font-family: 'Segoe UI Historic', 'Segoe UI', sans-serif;
   gap: 12px;
   padding: 0 50px;
-  width: 50%;
+  width: 30%;
 `;
 
 const ErrorText = styled.p`

@@ -4,19 +4,35 @@
       "id": 1,
       "img": "https://pbs.twimg.com/media/GKOrJYwaAAAOCgo.jpg",
       "text": "KISS OF LIFE 하늘 HANEUL (@KIOF_Haneeul) / X",
-      "completed": false
+      "status": true
     },
     {
       "id": 2,
       "img": "https://image.fnnews.com/resource/media/image/2024/05/24/202405240905362710_l.jpg",
       "text": "프로미스나인 백지헌, 복통 증세로 휴식…24일 스케줄도 불참 - 파이낸셜뉴스",
-      "completed": true
+      "status": true
     },
     {
       "id": 3,
       "img": "https://data.onnada.com/character/202301/2042390482_867dcf19_939696.jpg",
       "text": "호빵맨 (アンパンマン)",
-      "completed": false
+      "status": true
+    },
+    {
+      "id": "65e5",
+      "img": "https://www.news1.kr/_next/image?url=https%3A%2F%2Fi3n.news1.kr%2Fsystem%2Fphotos%2F2025%2F1%2F7%2F7072722%2Fhigh.jpg&w=1920&q=75",
+      "text": "블랙핑크 지수, '뉴토피아' 이어 솔로 컴백 열일로 기대감 - 뉴스",
+      "createdTime": "2025-05-07T00:08:22.162Z",
+      "status": true
+    },
+    {
+      "id": "2e27",
+      "img": "https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/04/30/3e6ad71b-ace2-489e-a139-38156851d0ae.jpg",
+      "text": "ㅇㄹㅇㄹㅁ",
+      "userImg": "https://pbs.twimg.com/media/GovEjGWaUAA5uBV?format=jpg&name=large",
+      "userNickName": "jinwoung",
+      "createdTime": "2025-05-07T00:35:04.372Z",
+      "status": true
     }
   ],
   "users": [
@@ -34,6 +50,7 @@
       "email": "int0802@naver.com",
       "password": "k1230569*",
       "username": "황인태",
+      "userNickName": "intae_0802",
       "birthDate": "2000-08-02"
     },
     {
@@ -41,6 +58,7 @@
       "email": "fdas",
       "password": "fasd",
       "username": "황인태",
+      "userNickName": "intae_0802",
       "birthDate": "2000-08-02"
     },
     {
@@ -48,7 +66,33 @@
       "email": "gkgkgk",
       "password": "1234",
       "username": "성진",
+      "userNickName": "intae_0802",
       "birthDate": "2009-01-18"
+    },
+    {
+      "id": "017e",
+      "email": "wncks@naver.com",
+      "password": "123456",
+      "username": "이주찬",
+      "birthDate": "2010-04-18"
+    },
+    {
+      "id": "d855",
+      "img": "https://pbs.twimg.com/media/GovEjGWaUAA5uBV?format=jpg&name=large",
+      "email": "wlsdud@naver.com",
+      "password": "123456",
+      "username": "전진영",
+      "userNickName": "jinwoung",
+      "birthDate": "2009-03-16"
+    },
+    {
+      "id": "d055",
+      "img": "https://i.namu.wiki/i/9AQ3kcwiGoeJoBJT8uIrCtkOsfSlCy7Z7FEyGTYq3AKyNAYlNC-GL9G7rYYRTQPDVjiBn3nBCb0ChIXZYT0M67_3SWH7R5k0Jm4lwX6WMIF1alCGF80bOyP6ggXdhjIGs_MV-S371dF7gcza9sXrRQ.webp",
+      "email": "gusdk@naver.com",
+      "password": "123456",
+      "username": "김현아",
+      "userNickName": "hyana",
+      "birthDate": "2011-02-14"
     }
   ]
 }

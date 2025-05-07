@@ -15,6 +15,7 @@ import NotFound from './pages/NotFound';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import Profile from './pages/Profile';
 
 performToast({ msg: '요청에 성공하였습니다. 1', type: 'success' });
 performToast({ msg: '요청에 실패하였습니다. 1', type: 'error' });
@@ -32,6 +33,7 @@ function App() {
       <Routes>
         <Route path="/" element={<SignIn />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/user" element={<Profile />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

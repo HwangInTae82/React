@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { MdHomeFilled, MdMenu, MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md';
+import { MdHomeFilled, MdMenu, MdOutlineDarkMode, MdOutlineLightMode, MdClose } from 'react-icons/md';
 import { IoIosSearch } from 'react-icons/io';
 import { AiOutlineCompass } from 'react-icons/ai';
 import { BiMoviePlay } from 'react-icons/bi';
@@ -11,12 +11,16 @@ import { BsThreads } from 'react-icons/bs';
 import { IoLogOutOutline } from 'react-icons/io5';
 import useUserStore from '../store/userStore';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { LiaSmileSolid } from 'react-icons/lia';
 
-const SideBar = () => {
-  const user = useUserStore((state) => state.user);
+const SideBar = ({ user }) => {
   const clearUser = useUserStore((state) => state.clearUser);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [img, setImg] = useState('');
+  const [text, setText] = useState('');
 
   const navigate = useNavigate();
 
@@ -45,10 +49,54 @@ const SideBar = () => {
     setIsMenuOpen(false);
   };
 
+  // 만들기 모달 열기/닫기 함수
+  const toggleCreateModal = () => {
+    if (showCreateModal && (img || text)) {
+      setImg('');
+      setText('');
+    }
+    setShowCreateModal(!showCreateModal);
+  };
+
+  const toggleSubmit = async (e) => {
+    if (!img || !text) {
+      alert('모든 필드를 입력해주세요.');
+      return;
+    }
+    e.preventDefault();
+
+    const posts = {
+      img: img,
+      text: text,
+      userImg: user.img, // 수정된 부분: {user.img} -> user.img
+      userNickName: user.userNickName,
+      createdTime: new Date().toISOString(),
+      status: true,
+    };
+
+    try {
+      await axios.post('http://localhost:3001/posts', posts);
+      alert('게시글 작성 성공!');
+
+      // 모달 닫기
+      toggleCreateModal();
+
+      // 홈 페이지로 이동하고 새로운 데이터를 받아오도록 처리
+      // 전체 페이지 리로드 대신 컴포넌트 리렌더링이 가능하도록 상태 업데이트
+      navigate('/home', { state: { refresh: true } });
+    } catch (error) {
+      console.error('게시글 작성 실패', error);
+      alert('게시글 작성에 실패했습니다.');
+    }
+  };
+
   return (
     <Wrapper darkMode={isDarkMode}>
       <Logo>
-        <Img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1280px-Instagram_logo.svg.png" />
+        <Img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1280px-Instagram_logo.svg.png"
+          onClick={() => handleNavigation('/home')}
+        />
       </Logo>
       <MenuBar>
         <Menus darkMode={isDarkMode} onClick={() => handleNavigation('/home')}>
@@ -56,7 +104,6 @@ const SideBar = () => {
           <MenusText>
             <span>홈</span>
           </MenusText>
-          {loading && <Spinner />}
         </Menus>
         <Menus darkMode={isDarkMode}>
           <IoIosSearch size={24} />
@@ -88,31 +135,33 @@ const SideBar = () => {
             <span>알림</span>
           </MenusText>
         </Menus>
-        <Menus darkMode={isDarkMode}>
+        <Menus darkMode={isDarkMode} onClick={toggleCreateModal}>
           <FaRegSquarePlus size={24} />
           <MenusText>
             <span>만들기</span>
           </MenusText>
         </Menus>
-        <Menus darkMode={isDarkMode}>
+        <Menus darkMode={isDarkMode} onClick={() => navigate(`/user`)}>
           <ProfileImg src={user.img} />
           <MenusText>
             <span>프로필</span>
           </MenusText>
         </Menus>
       </MenuBar>
-      <Menus darkMode={isDarkMode}>
-        <BsThreads size={24} />
-        <MenusText>
-          <span>Threads</span>
-        </MenusText>
-      </Menus>
-      <Menus darkMode={isDarkMode} onClick={toggleMenu}>
-        <MdMenu size={24} />
-        <MenusText>
-          <span>더 보기</span>
-        </MenusText>
-      </Menus>
+      <OptionBar>
+        <Menus darkMode={isDarkMode}>
+          <BsThreads size={24} />
+          <MenusText>
+            <span>Threads</span>
+          </MenusText>
+        </Menus>
+        <Menus darkMode={isDarkMode} onClick={toggleMenu}>
+          <MdMenu size={24} />
+          <MenusText>
+            <span>더 보기</span>
+          </MenusText>
+        </Menus>
+      </OptionBar>
 
       {isMenuOpen && (
         <DropupMenu darkMode={isDarkMode}>
@@ -135,6 +184,49 @@ const SideBar = () => {
             <MenuItemText>로그아웃</MenuItemText>
           </MenuItem>
         </DropupMenu>
+      )}
+
+      {/* 새 게시물 만들기 모달 */}
+      {showCreateModal && (
+        <ModalOverlay>
+          <CreateModal darkMode={isDarkMode}>
+            <ModalHeader>
+              <CloseButton onClick={toggleCreateModal}>
+                <MdClose size={24} />
+              </CloseButton>
+              <ModalTitle>새 게시물 만들기</ModalTitle>
+              <ShareButton onClick={toggleSubmit}>공유하기</ShareButton>
+            </ModalHeader>
+            <Divider />
+            <ModalContent>
+              <MediaIconContainer>
+                {!img && <MediaText>사진의 이미지 링크를 입력하세요</MediaText>}
+                <ImgLinkText
+                  type="text"
+                  value={img}
+                  placeholder="이미지 링크 삽입"
+                  onChange={(e) => setImg(e.target.value)}
+                />
+                <PreviewImg>
+                  {' '}
+                  {img && (
+                    <img src={img} alt="preview" style={{ width: '800px', height: '800px', objectFit: 'contain' }} />
+                  )}
+                </PreviewImg>
+              </MediaIconContainer>
+              <AddDataView>
+                <WriterProfile>
+                  <ProfileImg2 src={user.img} />
+                  <div>{user.userNickName}</div>
+                </WriterProfile>
+                <TextArea type="text" value={text} placeholder="설명..." onChange={(e) => setText(e.target.value)} />
+                <div style={{ borderBottom: '1px solid #b8b8b8', display: 'flex', paddingBottom: 10 }}>
+                  <LiaSmileSolid size={24} />
+                </div>
+              </AddDataView>
+            </ModalContent>
+          </CreateModal>
+        </ModalOverlay>
       )}
     </Wrapper>
   );
@@ -163,14 +255,21 @@ const Logo = styled.div`
   display: flex;
   justify-content: flex-start;
   width: 220px;
-  height: 73px;
+  height: 5%;
   padding: 20px 12px 11px;
   margin: 0 0 19px;
+  cursor: pointer;
 `;
 
 const MenuBar = styled.div`
+  flex: 1;
   width: 220px;
-  height: 80%;
+  overflow-y: auto;
+`;
+
+const OptionBar = styled.div`
+  width: 220px;
+  padding-bottom: 20px;
 `;
 
 const Menus = styled.div`
@@ -203,10 +302,16 @@ const ProfileImg = styled.img`
   border: none;
 `;
 
+const ProfileImg2 = styled.img`
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+`;
 const DropupMenu = styled.div`
   position: absolute;
-  bottom: 60px;
-  left: 12px;
+  bottom: 75px;
+  left: 16px;
   width: 220px;
   background-color: ${(props) => (props.darkMode ? '#1e1e1e' : '#ffffff')};
   border-radius: 12px;
@@ -256,4 +361,126 @@ const Spinner = styled.div`
       transform: rotate(360deg);
     }
   }
+`;
+
+// 모달 관련 스타일 컴포넌트
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+const CreateModal = styled.div`
+  width: 1195px;
+  height: 898px;
+  background-color: ${(props) => (props.darkMode ? '#262626' : '#ffffff')};
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+`;
+
+const ModalHeader = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 12px 0;
+  height: 42px;
+`;
+
+const ModalTitle = styled.h2`
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  left: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ModalContent = styled.div`
+  display: flex;
+  align-items: flex-start;
+`;
+
+const MediaIconContainer = styled.div`
+  width: 798px;
+  height: 855px;
+  padding-top: 8px;
+  border-right: 1px solid #eeeeee;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+`;
+const MediaText = styled.p`
+  font-size: 20px;
+  text-align: center;
+`;
+
+const ShareButton = styled.div`
+  position: absolute;
+  right: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  color: #0095f6;
+
+  &:hover {
+    color: #1c1c1c;
+  }
+`;
+
+const PreviewImg = styled.div`
+  position: relative;
+  left: 0;
+  bottom: 0;
+  overflow: hidden;
+`;
+
+const AddDataView = styled.div`
+  display: flex;
+  width: 396px;
+  padding: 0 16px;
+  flex-direction: column;
+  gap: 10px;
+`;
+const WriterProfile = styled.div`
+  height: 60px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  align-items: center;
+`;
+
+const ImgLinkText = styled.input`
+  width: 600px;
+  padding: 10px;
+`;
+
+const TextArea = styled.textarea`
+  width: 100%;
+  height: 200px;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
 `;

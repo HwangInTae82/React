@@ -20,7 +20,7 @@ const SignUp = () => {
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
 
   const handleSubmit = async (e) => {
-    if (!email || !password || !username || !year || !month || !day) {
+    if (!email || !password || !username || !userNickName || !year || !month || !day) {
       alert('모든 필드를 입력해주세요.');
       return;
     }
@@ -29,9 +29,11 @@ const SignUp = () => {
     const birthDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
     const userData = {
+      img: 'https://i.namu.wiki/i/Bge3xnYd4kRe_IKbm2uqxlhQJij2SngwNssjpjaOyOqoRhQlNwLrR2ZiK-JWJ2b99RGcSxDaZ2UCI7fiv4IDDQ.webp',
       email: email,
       password: password,
       username: username,
+      userNickName: userNickName,
       birthDate: birthDate,
     };
 
