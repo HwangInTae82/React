@@ -13,6 +13,7 @@ import useUserStore from '../store/userStore';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { LiaSmileSolid } from 'react-icons/lia';
+import { BeatLoader } from 'react-spinners';
 
 const SideBar = ({ user }) => {
   const clearUser = useUserStore((state) => state.clearUser);
@@ -30,8 +31,8 @@ const SideBar = ({ user }) => {
     setLoading(true);
     setTimeout(() => {
       navigate(path);
-      setLoading(false); // 필요 시 제거
-    }, 500); // 로딩 효과 지속 시간
+      setLoading(false);
+    }, 1000);
   };
 
   const toggleMenu = () => {
@@ -49,7 +50,6 @@ const SideBar = ({ user }) => {
     setIsMenuOpen(false);
   };
 
-  // 만들기 모달 열기/닫기 함수
   const toggleCreateModal = () => {
     if (showCreateModal && (img || text)) {
       setImg('');
@@ -68,7 +68,7 @@ const SideBar = ({ user }) => {
     const posts = {
       img: img,
       text: text,
-      userImg: user.img, // 수정된 부분: {user.img} -> user.img
+      userImg: user.img,
       userNickName: user.userNickName,
       createdTime: new Date().toISOString(),
       status: true,
@@ -78,11 +78,8 @@ const SideBar = ({ user }) => {
       await axios.post('http://localhost:3001/posts', posts);
       alert('게시글 작성 성공!');
 
-      // 모달 닫기
       toggleCreateModal();
 
-      // 홈 페이지로 이동하고 새로운 데이터를 받아오도록 처리
-      // 전체 페이지 리로드 대신 컴포넌트 리렌더링이 가능하도록 상태 업데이트
       navigate('/home', { state: { refresh: true } });
     } catch (error) {
       console.error('게시글 작성 실패', error);
@@ -105,6 +102,11 @@ const SideBar = ({ user }) => {
             <span>홈</span>
           </MenusText>
         </Menus>
+        {loading && (
+          <Overlay>
+            <BeatLoader color="#000000" />
+          </Overlay>
+        )}
         <Menus darkMode={isDarkMode}>
           <IoIosSearch size={24} />
           <MenusText>
@@ -186,7 +188,6 @@ const SideBar = ({ user }) => {
         </DropupMenu>
       )}
 
-      {/* 새 게시물 만들기 모달 */}
       {showCreateModal && (
         <ModalOverlay>
           <CreateModal darkMode={isDarkMode}>
@@ -363,7 +364,6 @@ const Spinner = styled.div`
   }
 `;
 
-// 모달 관련 스타일 컴포넌트
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -483,4 +483,16 @@ const TextArea = styled.textarea`
   padding: 10px;
   font-size: 16px;
   outline: none;
+`;
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: white; /* 반투명 배경 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* 최상위 레벨 */
 `;

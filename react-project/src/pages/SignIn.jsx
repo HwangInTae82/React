@@ -1,20 +1,22 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import React from 'react';
+import React, { useState } from 'react';
 import * as yup from 'yup';
 import styled from 'styled-components';
-import { Navigate, useAsyncError, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useUserStore from '../store/userStore';
-import { BiVolume } from 'react-icons/bi';
+import { BounceLoader } from 'react-spinners';
 
 const schema = yup.object().shape({
   email: yup.string().email('유효한 이메일 형식이 아닙니다.').required('이메일주소를 입력하세요.'),
-  password: yup.string().required('비밀번호를을 입력하세요.'),
+  password: yup.string().required('비밀번호를 입력하세요.'),
 });
 
 const SignIn = () => {
   const setUser = useUserStore((state) => state.setUser);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -33,8 +35,12 @@ const SignIn = () => {
 
       if (user) {
         setUser(user);
-        alert(`로그인 성공! 환영합니다, ${user.username}님`);
-        navigate('/home');
+        setIsLoading(true);
+        setTimeout(() => {
+          setIsLoading(false);
+          alert(`로그인 성공! 환영합니다, ${user.username}님`);
+          navigate('/home');
+        }, 2000);
       } else {
         alert('이메일 또는 비밀번호가 올바르지 않습니다.');
       }
@@ -44,42 +50,58 @@ const SignIn = () => {
     }
   };
 
-  const navigate = useNavigate();
-
   return (
-    <Wrapper>
-      <Introduce>
-        <LogoImg src="https://png.pngtree.com/png-clipart/20180626/ourmid/pngtree-instagram-icon-instagram-logo-png-image_3584853.png" />
+    <>
+      {isLoading && (
+        <Overlay>
+          <BounceLoader color="#000000" />
+        </Overlay>
+      )}
+      <Wrapper>
+        <Introduce>
+          <LogoImg src="https://png.pngtree.com/png-clipart/20180626/ourmid/pngtree-instagram-icon-instagram-logo-png-image_3584853.png" />
+          <span style={{ fontSize: 45, fontWeight: 'bold' }}>나를 이해하는 사람들과 관심사를 공유해보세요!!</span>
+          <div>
+            <IntroduceImg src="/src/img/Feta-IG-Web-A.png" alt="" />
+          </div>
+        </Introduce>
+        <FormWrapper onSubmit={handleSubmit(onSubmit)}>
+          <InstaLoginText>Instagram으로 로그인</InstaLoginText>
+          <InputText type="email" {...register('email')} placeholder="이메일 주소" />
+          {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
 
-        <span style={{ fontSize: 45, fontWeight: 'bold' }}>나를 이해하는 사람들과 관심사를 공유해보세요!!</span>
-        <div>
-          <IntroduceImg src="/src/img/Feta-IG-Web-A.png" alt="" />
-        </div>
-      </Introduce>
-      <FormWrapper onSubmit={handleSubmit(onSubmit)}>
-        <InstaLoginText>Instagram으로 로그인</InstaLoginText>
-        <InputText type="email" {...register('email')} placeholder="이메일 주소" />
-        {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
-
-        <InputText type="password" {...register('password')} placeholder="비밀번호" />
-        {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
-        <LoginButton type="submit">로그인</LoginButton>
-        <span>비밀번호를 잊으셨나요?</span>
-        <SignUpDiv>
-          <SignUpButton type="button" onClick={() => navigate('/signup')}>
-            새 계정 만들기
-          </SignUpButton>
-        </SignUpDiv>
-        <div>
-          <MetaLogoImg src="https://blog.kakaocdn.net/dn/cf2aNI/btsCbfy0Z11/CKBSZK5gdmeKEuDaZQKKlk/Meta_Platforms-Logo.wine.png?attach=1&knm=img.png" />
-        </div>
-      </FormWrapper>
-    </Wrapper>
+          <InputText type="password" {...register('password')} placeholder="비밀번호" />
+          {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
+          <LoginButton type="submit">로그인</LoginButton>
+          <span>비밀번호를 잊으셨나요?</span>
+          <SignUpDiv>
+            <SignUpButton type="button" onClick={() => navigate('/signup')}>
+              새 계정 만들기
+            </SignUpButton>
+          </SignUpDiv>
+          <div>
+            <MetaLogoImg src="https://blog.kakaocdn.net/dn/cf2aNI/btsCbfy0Z11/CKBSZK5gdmeKEuDaZQKKlk/Meta_Platforms-Logo.wine.png?attach=1&knm=img.png" />
+          </div>
+        </FormWrapper>
+      </Wrapper>
+    </>
   );
 };
 
 export default SignIn;
 
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;

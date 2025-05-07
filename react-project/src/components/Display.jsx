@@ -63,7 +63,7 @@ const Display = ({ user }) => {
           <ProfileWrapper>
             <WhiteBorder>
               <ProfileImage
-                src="https://thumbnews.nateimg.co.kr/view610///news.nateimg.co.kr/orgImg/sw/2023/08/09/20230809506622.jpg"
+                src="https://news.nateimg.co.kr/orgImg/ns/2025/03/02/NISI20250301_0001781581_web.jpg"
                 alt="profile"
               />
             </WhiteBorder>
