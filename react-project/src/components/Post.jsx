@@ -30,7 +30,7 @@ const Post = () => {
   const fetchPosts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:3001/posts');
+      const response = await axios.get('http://localhost:8585/api/boards');
       setPosts(response.data.reverse()); // 최신 게시물이 위에 오도록 정렬
 
       // 좋아요 상태 초기화
@@ -107,13 +107,13 @@ const Post = () => {
   };
 
   // 게시물 삭제
-  const deletePost = async (postId) => {
+  const deletePost = async (posts) => {
     if (window.confirm('정말로 이 게시물을 삭제하시겠습니까?')) {
       try {
-        await axios.delete(`http://localhost:3001/posts/${postId}`);
+        await axios.delete(`http://localhost:8585/posts/${posts.board_no}`);
 
         // 포스트 목록에서 삭제된 게시물 제거
-        setPosts(posts.filter((post) => post.id !== postId));
+        setPosts(posts.filter((posts) => posts.board_no !== posts.board_no));
 
         setShowOptions(null);
         alert('게시물이 삭제되었습니다.');
@@ -133,9 +133,9 @@ const Post = () => {
       {posts.map((post) => (
         <PostContainer key={post.id}>
           <PostHeader>
-            <ProfileImg src={post.userImg} />
-            <Username>{post.userNickName}</Username>
-            <PostTime>• {dayjs(post.createdTime).fromNow()}</PostTime>
+            <ProfileImg src={post.user_img} />
+            <Username>{post.user_nickname}</Username>
+            <PostTime>• {dayjs(post.create_time).fromNow()}</PostTime>
             <OptionsButtonContainer>
               <OptionsButton onClick={() => toggleOptions(post.id)}>
                 <BsThreeDots size={20} />
@@ -190,7 +190,7 @@ const Post = () => {
             </EditContainer>
           ) : (
             <PostContent>
-              <Username>{user.userNickName}</Username> {post.text}
+              <Username>{post.user_nickname}</Username> {post.board_content}
             </PostContent>
           )}
 

@@ -66,16 +66,15 @@ const SideBar = ({ user }) => {
     e.preventDefault();
 
     const posts = {
-      img: img,
-      text: text,
-      userImg: user.img,
-      userNickName: user.userNickName,
-      createdTime: new Date().toISOString(),
+      board_img: img,
+      board_content: text,
+      user_email: user.user_email,
+      create_time: new Date().toISOString(),
       status: true,
     };
 
     try {
-      await axios.post('http://localhost:3001/posts', posts);
+      await axios.post('http://localhost:8585/api/boards', posts);
       alert('게시글 작성 성공!');
 
       toggleCreateModal();
@@ -144,7 +143,7 @@ const SideBar = ({ user }) => {
           </MenusText>
         </Menus>
         <Menus darkMode={isDarkMode} onClick={() => navigate(`/user`)}>
-          <ProfileImg src={user.img} />
+          <ProfileImg src={user.user_img} />
           <MenusText>
             <span>프로필</span>
           </MenusText>
@@ -217,8 +216,8 @@ const SideBar = ({ user }) => {
               </MediaIconContainer>
               <AddDataView>
                 <WriterProfile>
-                  <ProfileImg2 src={user.img} />
-                  <div>{user.userNickName}</div>
+                  <ProfileImg2 src={user.user_img} />
+                  <div>{user.user_nickname}</div>
                 </WriterProfile>
                 <TextArea type="text" value={text} placeholder="설명..." onChange={(e) => setText(e.target.value)} />
                 <div style={{ borderBottom: '1px solid #b8b8b8', display: 'flex', paddingBottom: 10 }}>

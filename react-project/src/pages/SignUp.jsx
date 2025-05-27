@@ -29,16 +29,15 @@ const SignUp = () => {
     const birthDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
     const userData = {
-      img: 'https://i.namu.wiki/i/Bge3xnYd4kRe_IKbm2uqxlhQJij2SngwNssjpjaOyOqoRhQlNwLrR2ZiK-JWJ2b99RGcSxDaZ2UCI7fiv4IDDQ.webp',
-      email: email,
-      password: password,
-      username: username,
-      userNickName: userNickName,
-      birthDate: birthDate,
+      user_email: email,
+      user_pwd: password,
+      user_name: username,
+      user_nickname: userNickName,
+      birthday: birthDate,
     };
 
     try {
-      await axios.post('http://localhost:3001/users', userData);
+      await axios.post('http://localhost:8585/api/members', userData);
       alert('회원가입 성공!');
       navigate('/');
     } catch (error) {

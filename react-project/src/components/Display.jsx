@@ -75,13 +75,13 @@ const Display = ({ user }) => {
         <RightBarInside>
           <Profile>
             <ProfileImgDiv>
-              <ProfileImg src={user.img} />
+              <ProfileImg src={user.user_img} />
             </ProfileImgDiv>
             <ProfileData>
               <a style={{ fontWeight: 'bold' }} href="">
-                {user.userNickName}
+                {user.user_nickname}
               </a>
-              <span>{user.username}</span>
+              <span>{user.user_name}</span>
             </ProfileData>
             <ProfileChange>전환</ProfileChange>
           </Profile>

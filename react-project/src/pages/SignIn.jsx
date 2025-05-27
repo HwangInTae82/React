@@ -27,26 +27,30 @@ const SignIn = () => {
   });
 
   const onSubmit = async (data) => {
+    setIsLoading(true);
     try {
-      const response = await axios.get('http://localhost:3001/users');
-      const users = response.data;
+      const response = await axios.get(`http://localhost:8585/api/members/${data.email}`);
+      const user = response.data;
 
-      const user = users.find((u) => u.email === data.email && u.password === data.password);
-
-      if (user) {
+      if (user.user_pwd === data.password) {
         setUser(user);
-        setIsLoading(true);
         setTimeout(() => {
           setIsLoading(false);
-          alert(`로그인 성공! 환영합니다, ${user.username}님`);
+          alert(`로그인 성공! 환영합니다, ${user.user_name}님`);
           navigate('/home');
         }, 2000);
       } else {
-        alert('이메일 또는 비밀번호가 올바르지 않습니다.');
+        setIsLoading(false);
+        alert('비밀번호가 올바르지 않습니다.');
       }
     } catch (error) {
-      console.error('로그인 요청 중 오류 발생:', error);
-      alert('서버에 연결할 수 없습니다.');
+      setIsLoading(false);
+      if (error.response?.status === 404) {
+        alert('존재하지 않는 이메일입니다.');
+      } else {
+        console.error('로그인 요청 중 오류 발생:', error);
+        alert('서버에 연결할 수 없습니다.');
+      }
     }
   };
 
